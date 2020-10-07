@@ -19,16 +19,20 @@ public class Proj3 {
 		StoreObserver observe = new StoreObserver();
 		store.makeRolls("egg");
 		store.makeRolls("jelly");
+		store.makeRolls("sausage");
+		store.makeRolls("spring");
+		store.makeRolls("pastry");
 		store.addPropertyChangeListener(observe);
 		Roll r1 = store.sellRoll("egg");
+		System.out.println(r1.getDescription());
 		r1 = store.sellRoll("egg");
+		System.out.println(r1.getDescription());
 		r1 = store.sellRoll("egg");
-		
+		System.out.println(r1.getDescription());
+		store.printInventory();
 		Customer cus = new CateringCustomer();
 		String [] order = cus.orderComposition();
-		for(int x = 0; x < order.length; x++) {
-			System.out.println(order[x]);
-		}
+		
 		
 	}
 }
