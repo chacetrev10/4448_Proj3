@@ -20,17 +20,23 @@ public class RollStore {
 	private PropertyChangeSupport support;
 
 	public RollStore(RollFactory factory) {
-		this.factory = factory;
 		support = new PropertyChangeSupport(this);
+		this.factory = factory;
 		rollInventory.put("spring", new ArrayList<Roll>());
+		makeRolls("spring");
 		rollInventory.put("egg", new ArrayList<Roll>());
+		makeRolls("egg");
 		rollInventory.put("jelly", new ArrayList<Roll>());
+		makeRolls("jelly");
 		rollInventory.put("sausage", new ArrayList<Roll>());
+		makeRolls("sausage");
 		rollInventory.put("pastry", new ArrayList<Roll>());
+		makeRolls("pastry");
 	}
 
 	public void makeRolls(String type) {
-
+		
+		//the roll factory is called here when the inventory of any roll is 0
 		List<Roll> rollTypeCount = rollInventory.get(type);
 		if (rollTypeCount.size() == 0) {
 			for (int x = 0; x < 30; x++) {
@@ -53,11 +59,8 @@ public class RollStore {
 
 		if (rollInventory.containsKey(type)) {
 			List<Roll> rollTypeCount = rollInventory.get(type);
-			if (rollTypeCount.size() == 0) {
-				setTask(type);
-				rollInventory.remove(type);
-			} else {
-
+			if (rollTypeCount.size() > 0) {
+				
 				// decorator pattern occurs here by removing the roll, and adding on the random
 				// values of extra toppings
 
@@ -74,9 +77,13 @@ public class RollStore {
 				for (int x = 0; x < numToppings; x++) {
 					retRoll = new ExtraTopping(retRoll);
 				}
-
+				if (rollTypeCount.size() == 0) {
+					setTask(type);
+				}
 			}
+			
 		}
+		
 		return retRoll;
 	}
 
