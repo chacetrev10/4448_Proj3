@@ -4,6 +4,7 @@ public class JellyRoll extends Roll {
 	
 	public JellyRoll() {
 		description = "Jelly Roll";
+		type = "jelly";
 	}
 	
 	public double getCost() {

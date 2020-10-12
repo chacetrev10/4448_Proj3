@@ -1,17 +1,8 @@
 import java.util.ArrayList;
 import java.util.List;
-
-import customer.BuisnessCustomer;
-import customer.CasualCustomer;
-import customer.CateringCustomer;
 import customer.Customer;
 import customer.CustomerFactory;
-import rolls.ExtraFilling;
-import rolls.ExtraSauce;
-import rolls.ExtraTopping;
-import rolls.JellyRoll;
 import rolls.Roll;
-import rolls.SausageRoll;
 import store.RollFactory;
 import store.RollStore;
 import store.StoreObserver;
@@ -52,7 +43,7 @@ public class Proj3 {
 				Roll currentRoll = store.sellRoll(type);
 				if (currentRoll != null) {
 					System.out.println(currentRoll.getDescription());
-					System.out.println(currentRoll.getCost());
+					System.out.printf("%.2f",currentRoll.getCost());
 					System.out.println();
 				}
 			}

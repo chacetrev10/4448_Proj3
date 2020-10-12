@@ -4,6 +4,7 @@ public class SausageRoll extends Roll{
 	
 	public SausageRoll() {
 		description = "Sausage Roll";
+		type = "sausage";
 	}
 	
 	public double getCost() {

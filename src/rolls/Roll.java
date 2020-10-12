@@ -1,9 +1,17 @@
 package rolls;
 
 public abstract class Roll {
-	String description;
-	double cost;
+	protected String description;
+	protected double cost;
+	protected String type;
 	
+	public void setType(String type) {
+		this.type = type;
+	}
+	
+	public String getType() {
+		return type;
+	}
 	public String getDescription() {
 		return description;
 	}

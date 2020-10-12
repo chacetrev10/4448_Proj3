@@ -4,6 +4,7 @@ public class EggRoll extends Roll{
 
 	public EggRoll() {
 		description = "Egg Roll";
+		type = "egg";
 	}
 	
 	public double getCost() {
