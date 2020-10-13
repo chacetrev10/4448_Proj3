@@ -2,6 +2,9 @@ package customer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import rolls.Roll;
 
 public class CateringCustomer extends Customer {
 
@@ -21,6 +24,29 @@ public class CateringCustomer extends Customer {
 			}
 		}
 		return order;
+	}
+
+	@Override
+	public String[] retryOrder(Map<String, List<Roll>> available) {
+		String[] newOrder = new String[15];
+		int added = 0;
+		for(String type: available.keySet()) {
+			for(int x = 0; x < available.get(type).size(); x++) {
+				if(added < 15) {
+					newOrder[added] = type;
+					added++;
+				}else {
+					break;
+				}
+			}
+		}
+		if(added == 15) {
+			return newOrder;
+		}else {
+			return null;
+		}
+		
+		
 	}
 
 }

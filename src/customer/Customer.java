@@ -1,8 +1,13 @@
 package customer;
 
+import java.util.List;
+import java.util.Map;
+
+import rolls.Roll;
+
 public abstract class Customer {
 	
-	private String[] rollTypes = {"egg", "pastry", "sausage", "spring", "jelly"};
+	protected String[] rollTypes = {"egg", "pastry", "sausage", "spring", "jelly"};
 	
 	public abstract String[] orderComposition();
 	
@@ -10,6 +15,9 @@ public abstract class Customer {
 		int randomChoice = (int) (Math.random()*5);
 		return rollTypes[randomChoice];
 	}
+	
+	public abstract String[] retryOrder( Map<String, List<Roll>> available);
+	
 	
 			
 }

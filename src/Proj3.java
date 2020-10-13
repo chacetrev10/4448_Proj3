@@ -31,7 +31,7 @@ public class Proj3 {
 		int numCasual = (int) (Math.random() * 12) + 1;
 		int numBuisness = (int) (Math.random() * 3 + 1);
 		int numCatering = (int) (Math.random() * 3 + 1);
-		
+
 		// Create customer load using customer factory
 		for (int x = 0; x < numCasual; x++) {
 			customerList.add(casualFact.createCustomer("casual"));
@@ -45,16 +45,26 @@ public class Proj3 {
 
 		for (Customer c : customerList) {
 			String[] order = c.orderComposition();
-			for (String type : order) {
-				Roll currentRoll = store.sellRoll(type);
-				if (currentRoll != null) {
-					System.out.println(currentRoll.getDescription());
-					System.out.printf("%.2f",currentRoll.getCost());
-					System.out.println();
+			boolean possible = store.checkOrderFeasability(order);
+			if (!possible) {
+				store.setAffected(1);
+				order = c.retryOrder(store.getInventory());
+			}
+			if (order != null) {
+				for (String type : order) {
+					Roll currentRoll = store.sellRoll(type);
+					if (currentRoll != null) {
+//						System.out.println(currentRoll.getDescription());
+//						System.out.printf("%.2f", currentRoll.getCost());
+						store.setDaySales(currentRoll.getCost());
+//						System.out.println();
+					}
 				}
 			}
 		}
 		store.printInventory();
+		System.out.printf("The store had %.2f in total sales for the day\n", store.getDaySales());
+		System.out.printf("The store had %d sales affected by outages today", store.getAffected());
 
 	}
 }

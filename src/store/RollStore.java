@@ -3,6 +3,8 @@ package store;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +20,8 @@ public class RollStore {
 
 	private RollFactory factory;
 	private PropertyChangeSupport support;
+	private double daySales = 0;
+	private int affectedCustomers = 0;
 
 	public RollStore(RollFactory factory) {
 		support = new PropertyChangeSupport(this);
@@ -110,5 +114,44 @@ public class RollStore {
 				rollInventory.get("jelly").size(), rollInventory.get("spring").size(), rollInventory.get("egg").size(),
 				rollInventory.get("sausage").size(), rollInventory.get("pastry").size());
 	}
+	
+	public boolean checkOrderFeasability(String[] order) {
+		List <String> orderToList = Arrays.asList(order);
+		int jelly =  Collections.frequency(orderToList, "jelly");
+		int sausage =  Collections.frequency(orderToList, "sausage");
+		int egg =  Collections.frequency(orderToList, "egg");
+		int spring =  Collections.frequency(orderToList, "spring");
+		int pastry =  Collections.frequency(orderToList, "pastry");
+		if(jelly > rollInventory.get("jelly").size() ||
+				spring > rollInventory.get("spring").size() ||
+				egg > rollInventory.get("egg").size()||
+				sausage > rollInventory.get("sausage").size() ||
+				pastry >rollInventory.get("pastry").size()){
+					
+					return false;
+				}
+		return true;
 
+		
+		
+	}
+	public double getDaySales() {
+		return daySales;
+	}
+	public void setDaySales(double rollPrice) {
+		daySales+= rollPrice;
+	}
+	
+	public int getAffected() {
+		return affectedCustomers;
+	}
+	public void setAffected(int num) {
+		affectedCustomers+= num;
+	}
+	
+	
+	
+	
+	
+	
 }
