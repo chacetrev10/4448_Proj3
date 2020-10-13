@@ -1,5 +1,6 @@
 package customer;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -25,9 +26,9 @@ public class CasualCustomer extends Customer {
 	@Override
 	public String[] retryOrder(Map<String, List<Roll>> available) {
 		String[] newOrder;
-		List<String> rollTypesToList = Arrays.asList(rollTypes);
+		List<String> rollTypesToList = new ArrayList<String>(Arrays.asList(rollTypes));
 		int checked = 0;
-		while (checked < 5) {
+		while (rollTypesToList.size() > 0) {
 			if (available.get(type).size() > 0) {
 				if (available.get(type).size() < numRollsPurchased) {
 					newOrder = new String[available.get(type).size()];

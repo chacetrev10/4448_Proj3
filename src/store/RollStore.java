@@ -27,30 +27,28 @@ public class RollStore {
 		support = new PropertyChangeSupport(this);
 		this.factory = factory;
 		rollInventory.put("spring", new ArrayList<Roll>());
-		makeRolls("spring");
 		rollInventory.put("egg", new ArrayList<Roll>());
-		makeRolls("egg");
 		rollInventory.put("jelly", new ArrayList<Roll>());
-		makeRolls("jelly");
 		rollInventory.put("sausage", new ArrayList<Roll>());
-		makeRolls("sausage");
 		rollInventory.put("pastry", new ArrayList<Roll>());
-		makeRolls("pastry");
+		makeRolls();
 	}
 
-	public void makeRolls(String type) {
-		
-		//the roll factory is called here when the inventory of any roll is 0
-		List<Roll> rollTypeCount = rollInventory.get(type);
-		if (rollTypeCount.size() == 0) {
-			for (int x = 0; x < 30; x++) {
-				Roll roll = factory.createRoll(type);
-				rollTypeCount.add(roll);
+	public void makeRolls() {
 
+		// the roll factory is called here when the inventory of any roll is 0
+		for (String type : rollInventory.keySet()) {
+			List<Roll> rollTypeCount = rollInventory.get(type);
+			if (rollTypeCount.size() == 0) {
+				for (int x = 0; x < 30; x++) {
+					Roll roll = factory.createRoll(type);
+					rollTypeCount.add(roll);
+
+				}
+				rollInventory.put(type, rollTypeCount);
 			}
-			rollInventory.put(type, rollTypeCount);
-		}
 
+		}
 	}
 
 	public Map<String, List<Roll>> getInventory() {
@@ -64,13 +62,13 @@ public class RollStore {
 		if (rollInventory.containsKey(type)) {
 			List<Roll> rollTypeCount = rollInventory.get(type);
 			if (rollTypeCount.size() > 0) {
-				
+
 				// decorator pattern occurs here by removing the roll, and adding on the random
 				// values of extra toppings
 
 				retRoll = rollTypeCount.remove(0);
 				int numSauces = (int) (Math.random() * 4);
-				int numFillings = (int) (Math.random()*2);
+				int numFillings = (int) (Math.random() * 2);
 				int numToppings = (int) (Math.random() * 3);
 				for (int x = 0; x < numSauces; x++) {
 					retRoll = new ExtraSauce(retRoll);
@@ -81,13 +79,13 @@ public class RollStore {
 				for (int x = 0; x < numToppings; x++) {
 					retRoll = new ExtraTopping(retRoll);
 				}
-				if (rollTypeCount.size() == 0) {
+//				if (rollTypeCount.size() == 0) {
 					setTask(type);
-				}
+//				}
 			}
-			
+
 		}
-		
+
 		return retRoll;
 	}
 
@@ -114,44 +112,38 @@ public class RollStore {
 				rollInventory.get("jelly").size(), rollInventory.get("spring").size(), rollInventory.get("egg").size(),
 				rollInventory.get("sausage").size(), rollInventory.get("pastry").size());
 	}
-	
+
 	public boolean checkOrderFeasability(String[] order) {
-		List <String> orderToList = Arrays.asList(order);
-		int jelly =  Collections.frequency(orderToList, "jelly");
-		int sausage =  Collections.frequency(orderToList, "sausage");
-		int egg =  Collections.frequency(orderToList, "egg");
-		int spring =  Collections.frequency(orderToList, "spring");
-		int pastry =  Collections.frequency(orderToList, "pastry");
-		if(jelly > rollInventory.get("jelly").size() ||
-				spring > rollInventory.get("spring").size() ||
-				egg > rollInventory.get("egg").size()||
-				sausage > rollInventory.get("sausage").size() ||
-				pastry >rollInventory.get("pastry").size()){
-					
-					return false;
-				}
+		List<String> orderToList = Arrays.asList(order);
+		int jelly = Collections.frequency(orderToList, "jelly");
+		int sausage = Collections.frequency(orderToList, "sausage");
+		int egg = Collections.frequency(orderToList, "egg");
+		int spring = Collections.frequency(orderToList, "spring");
+		int pastry = Collections.frequency(orderToList, "pastry");
+		if (jelly > rollInventory.get("jelly").size() || spring > rollInventory.get("spring").size()
+				|| egg > rollInventory.get("egg").size() || sausage > rollInventory.get("sausage").size()
+				|| pastry > rollInventory.get("pastry").size()) {
+
+			return false;
+		}
 		return true;
 
-		
-		
 	}
+
 	public double getDaySales() {
 		return daySales;
 	}
+
 	public void setDaySales(double rollPrice) {
-		daySales+= rollPrice;
+		daySales += rollPrice;
 	}
-	
+
 	public int getAffected() {
 		return affectedCustomers;
 	}
+
 	public void setAffected(int num) {
-		affectedCustomers+= num;
+		affectedCustomers += num;
 	}
-	
-	
-	
-	
-	
-	
+
 }
