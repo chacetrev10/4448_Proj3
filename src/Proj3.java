@@ -10,6 +10,7 @@ import rolls.Roll;
 import store.RollFactory;
 import store.RollStore;
 import store.StoreObserver;
+import test.MyUnitTest;
 
 public class Proj3 {
 	public static void main(String[] args) {
@@ -25,6 +26,18 @@ public class Proj3 {
 		// Define store observer and subscribe it the store
 		StoreObserver observe = new StoreObserver();
 		store.addPropertyChangeListener(observe);
+		
+		MyUnitTest unitTests = new MyUnitTest();
+		unitTests.testEggRollCost();
+		unitTests.testBusinessOrder();
+		unitTests.testLenCasualOrder();
+		unitTests.testLenCateringOrder();
+		unitTests.testTypeCateringOrder();
+		unitTests.testExtraFillingDescription();
+		unitTests.testExtraFillingCost();
+		unitTests.testExtraSauceCost();
+		unitTests.testExtraTopCost();
+		unitTests.testExtraSauceDescription();
 
 		for (int day = 1; day < 31; day++) {
 			System.out.printf("\nIt is the start of day %d\n", day);
