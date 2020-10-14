@@ -6,6 +6,7 @@ public abstract class ExtraDecorator extends Roll{
 	@Override
 	public abstract String getDescription();
 	
+	//Decorate roll with extra filling, toppings, or sauce
 	public String getType() {
 		return roll.getType();
 	}

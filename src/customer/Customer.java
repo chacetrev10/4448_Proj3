@@ -7,10 +7,13 @@ import rolls.Roll;
 
 public abstract class Customer {
 	
+	public String customerType;
+	
 	protected String[] rollTypes = {"egg", "pastry", "sausage", "spring", "jelly"};
 	
 	public abstract String[] orderComposition();
 	
+	//Make random roll selection
 	protected String chooseRoll() {
 		int randomChoice = (int) (Math.random()*5);
 		return rollTypes[randomChoice];

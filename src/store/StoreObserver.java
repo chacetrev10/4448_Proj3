@@ -11,10 +11,14 @@ import java.util.Map;
 import rolls.Roll;
 
 public class StoreObserver implements PropertyChangeListener {
+	//Keep track of what is in inventory
 	private List<String> availableInventory = new ArrayList<>(
 			Arrays.asList("spring", "egg", "sausage", "jelly", "pastry"));
+	
+	//Keep track of what has been sold
 	private Map<String, Integer> totalSold = new HashMap<>();
 
+	//Observe the RollStore to see if a roll type runs out
 	@Override
 	public void propertyChange(PropertyChangeEvent event) {
 		if (!totalSold.containsKey(event.getNewValue())) {
@@ -36,6 +40,7 @@ public class StoreObserver implements PropertyChangeListener {
 
 	}
 	
+	//Print the number of each roll sold and the total number of rolls sold
 	public void printTotalRollsSold() {
 		System.out.printf(
 				"\nNumber of jelly rolls sold %d\n" + "Number of spring rolls sold %d \n"

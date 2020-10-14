@@ -9,6 +9,7 @@ import rolls.SpringRoll;
 
 public class RollFactory {
 
+	//Based on roll type, create different rolls
 	public Roll createRoll(String type) {
 		Roll roll = null;
 		switch(type) {

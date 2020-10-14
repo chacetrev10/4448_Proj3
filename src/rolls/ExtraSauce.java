@@ -13,6 +13,7 @@ public class ExtraSauce extends ExtraDecorator {
 		return roll.getDescription() + " with extra sauce";
 	}
 
+	//Change price of roll for more sauce
 	@Override
 	public double getCost() {
 		cost = roll.getCost();

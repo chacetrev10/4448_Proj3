@@ -7,7 +7,12 @@ import java.util.Map;
 import rolls.Roll;
 
 public class CateringCustomer extends Customer {
+	
+	public CateringCustomer() {
+		customerType = "catering";
+	}
 
+	//Choose 15 rolls of 3 different random types
 	@Override
 	public String[] orderComposition() {
 		String[] order = new String[15];
@@ -26,6 +31,7 @@ public class CateringCustomer extends Customer {
 		return order;
 	}
 
+	//If a roll type is out of stock, try a different roll type
 	@Override
 	public String[] retryOrder(Map<String, List<Roll>> available) {
 		String[] newOrder = new String[15];

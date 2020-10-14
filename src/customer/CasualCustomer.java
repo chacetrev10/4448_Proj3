@@ -11,7 +11,12 @@ public class CasualCustomer extends Customer {
 
 	private int numRollsPurchased;
 	private String type;
+	
+	public CasualCustomer() {
+		customerType = "casual";
+	}
 
+	//Choose 1 to 3 rolls at random
 	@Override
 	public String[] orderComposition() {
 		numRollsPurchased = (int) (Math.random() * 3) + 1;
@@ -23,6 +28,7 @@ public class CasualCustomer extends Customer {
 		return order;
 	}
 
+	//If a roll is out of stock, retry by changing roll type
 	@Override
 	public String[] retryOrder(Map<String, List<Roll>> available) {
 		String[] newOrder;

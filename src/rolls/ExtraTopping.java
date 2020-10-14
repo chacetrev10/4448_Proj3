@@ -11,6 +11,7 @@ public class ExtraTopping extends ExtraDecorator{
 		return roll.getDescription() + " with extra toppings";
 	}
 
+	//Change price of roll for more toppings
 	@Override
 	public double getCost() {
 		cost = roll.getCost();

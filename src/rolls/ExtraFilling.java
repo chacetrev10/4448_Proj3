@@ -12,6 +12,7 @@ public class ExtraFilling extends ExtraDecorator {
 		return roll.getDescription() + " with extra filling";
 	}
 
+	//Change price of roll for more filling
 	@Override
 	public double getCost() {
 		cost = roll.getCost();
