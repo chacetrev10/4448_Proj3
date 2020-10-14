@@ -21,25 +21,26 @@ public class StoreObserver implements PropertyChangeListener {
 	//Observe the RollStore to see if a roll type runs out
 	@Override
 	public void propertyChange(PropertyChangeEvent event) {
-		if (!totalSold.containsKey(event.getNewValue())) {
-			totalSold.put((String) event.getNewValue(), 0);
-		}
+		if (event.getNewValue().equals("end")) {
+			availableInventory = new ArrayList<>(Arrays.asList("spring", "egg", "sausage", "jelly", "pastry"));
+		} else {
+			if (!totalSold.containsKey(event.getNewValue())) {
+				totalSold.put((String) event.getNewValue(), 0);
+			}
 
-		int currentRollSold = totalSold.get(event.getNewValue()) + 1;
-		totalSold.put((String) event.getNewValue(), currentRollSold);
-		if (currentRollSold % 30 == 0) {
-			System.out.println("The shop has just ran out of " + event.getNewValue() + " rolls!");
-			availableInventory.remove(event.getNewValue());
-		}
-		if (availableInventory.size() == 0) {
-			System.out.println("The store has ran out of rolls and is closing for the day!");
-			availableInventory = new ArrayList<>(
-					Arrays.asList("spring", "egg", "sausage", "jelly", "pastry"));
+			int currentRollSold = totalSold.get(event.getNewValue()) + 1;
+			totalSold.put((String) event.getNewValue(), currentRollSold);
+			if (currentRollSold % 30 == 0) {
+				System.out.println("The shop has just ran out of " + event.getNewValue() + " rolls!");
+				availableInventory.remove(event.getNewValue());
+			}
+			if (availableInventory.size() == 0) {
+				System.out.println("The store has ran out of rolls and is closing for the day!");
 
+			}
 		}
 
 	}
-	
 	//Print the number of each roll sold and the total number of rolls sold
 	public void printTotalRollsSold() {
 		System.out.printf(

@@ -96,9 +96,7 @@ public class Proj3 {
 							Roll currentRoll = store.sellRoll(type);
 							if (currentRoll != null) {
 								System.out.println(currentRoll.getDescription());
-	//							System.out.printf("%.2f", currentRoll.getCost());
 								store.setDaySales(currentRoll.getCost(), c.customerType);
-	//							System.out.println();
 							}
 						}
 						System.out.println();
@@ -121,6 +119,7 @@ public class Proj3 {
 				}
 				
 				//Reset sales and number of affected people for the day back to 0 for next day
+				System.out.printf("\nIt is the end of day %d \n", day);
 				store.resetSalesByCustomerType();
 				System.out.printf("The store had %.2f in total sales for the day\n", store.getDaySales());
 				store.setTotalSales(store.getDaySales());
@@ -130,9 +129,10 @@ public class Proj3 {
 				store.makeRolls(maximum);
 				store.setAffected(-1*store.getAffected(), "casual");
 				store.resetOutagesByCustomerType();
+				store.setTask("end");
 				System.out.println();
 			}
-			
+	 		System.out.printf("\n\nStats for the 30 of sales with %d rolls\n", maximum ); 
 			observe.printTotalRollsSold();
 			System.out.println();
 			System.out.printf("Store made a total of %.2f dollars\n", store.getTotalSales());
