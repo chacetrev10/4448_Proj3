@@ -39,8 +39,10 @@ public class Proj3 {
 		unitTests.testExtraSauceCost();
 		unitTests.testExtraTopCost();
 		unitTests.testExtraSauceDescription();
+		
+		int numDays = 31;
 
-		for (int day = 1; day < 31; day++) {
+		for (int day = 1; day < numDays; day++) {
 			System.out.printf("\nIt is the start of day %d\n", day);
 			store.printInventory();
 			
@@ -90,12 +92,14 @@ public class Proj3 {
 					}
 				}
 			}
+			System.out.printf("\nIt is the end of day %d \n", day);
 			store.printInventory();
 			Map<String, Double> salesByCustomer = store.getSalesByCustomerType();
 			for( Map.Entry<String, Double> entry : salesByCustomer.entrySet() ){
 			    System.out.printf("%s customers had %.2f in sales for the day", entry.getKey(), entry.getValue() );
 			    System.out.println();
 			}
+			store.setTask("end");
 			store.resetSalesByCustomerType();
 			System.out.printf("The store had %.2f in total sales for the day\n", store.getDaySales());
 			store.setTotalSales(store.getDaySales());
@@ -105,10 +109,11 @@ public class Proj3 {
 			store.makeRolls();
 			store.setAffected(-1*store.getAffected());
 			System.out.println();
+			
 		}
-		
+		store.removePropertyChangeListener(observe);
 		observe.printTotalRollsSold();
-		System.out.println();
+		System.out.printf("\n\nStats for the %d of sales \n", numDays-1 );
 		System.out.printf("Store made a total of %.2f dollars\n", store.getTotalSales());
 		System.out.printf("There were a total of %d roll outage impacts", store.getTotalAffected());
 	}
