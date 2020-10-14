@@ -90,6 +90,7 @@ public class Proj3 {
 					}
 					//If order ends up working, record it as a sale
 					if (order != null) {
+						double orderCost = 0.0;
 						System.out.printf("New Order Customer Type: %s\n", c.customerType);
 						System.out.println("Order: ");
 						for (String type : order) {
@@ -97,8 +98,10 @@ public class Proj3 {
 							if (currentRoll != null) {
 								System.out.println(currentRoll.getDescription());
 								store.setDaySales(currentRoll.getCost(), c.customerType);
+								orderCost+=currentRoll.getCost();
 							}
 						}
+						System.out.printf("Cost of the order %.2f\n", orderCost);
 						System.out.println();
 					}
 				}
@@ -132,7 +135,7 @@ public class Proj3 {
 				store.setTask("end");
 				System.out.println();
 			}
-	 		System.out.printf("\n\nStats for the 30 of sales with %d rolls\n", maximum ); 
+	 		System.out.printf("\n\nStats for the 30 days of sales with %d rolls\n", maximum ); 
 			observe.printTotalRollsSold();
 			System.out.println();
 			System.out.printf("Store made a total of %.2f dollars\n", store.getTotalSales());
