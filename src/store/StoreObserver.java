@@ -43,6 +43,8 @@ public class StoreObserver implements PropertyChangeListener {
 						+ "Number of pastry rolls sold %d \n",
 				totalSold.get("jelly"), totalSold.get("spring"), totalSold.get("egg"),
 				totalSold.get("sausage"), totalSold.get("pastry"));
+		System.out.printf("Total number of rolls sold: %d", totalSold.get("jelly") + totalSold.get("spring") 
+		+ totalSold.get("egg") + totalSold.get("sausage") + totalSold.get("pastry"));
 	}
 
 }

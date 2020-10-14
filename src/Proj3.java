@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import customer.BuisnessFactory;
 import customer.CasualFactory;
@@ -59,11 +60,12 @@ public class Proj3 {
 			for (int x = 0; x < numBuisness; x++) {
 				customerList.add(buisnessFact.createCustomer("buisness"));
 			}
-			for (int x = 0; x < 8; x++) {
+			for (int x = 0; x < numCatering; x++) {
 				customerList.add(cateringFact.createCustomer("catering"));
 			}
 
 			for (Customer c : customerList) {
+				//System.out.println(c.getClass());
 				String[] order = c.orderComposition();
 				boolean possible = store.checkOrderFeasability(order);
 				if (!possible) {
@@ -76,19 +78,38 @@ public class Proj3 {
 						if (currentRoll != null) {
 //						System.out.println(currentRoll.getDescription());
 //						System.out.printf("%.2f", currentRoll.getCost());
-							store.setDaySales(currentRoll.getCost());
+							if (c.getClass() == customer.CasualCustomer.class) {
+								store.setDaySales(currentRoll.getCost(), "casual");
+							} else if (c.getClass() == customer.BuisnessCustomer.class) {
+								store.setDaySales(currentRoll.getCost(), "business");
+							} else if (c.getClass() == customer.CateringCustomer.class) {
+								store.setDaySales(currentRoll.getCost(), "catering");
+							}
 //						System.out.println();
 						}
 					}
 				}
 			}
 			store.printInventory();
+			Map<String, Double> salesByCustomer = store.getSalesByCustomerType();
+			for( Map.Entry<String, Double> entry : salesByCustomer.entrySet() ){
+			    System.out.printf("%s customers had %.2f in sales for the day", entry.getKey(), entry.getValue() );
+			    System.out.println();
+			}
+			store.resetSalesByCustomerType();
 			System.out.printf("The store had %.2f in total sales for the day\n", store.getDaySales());
+			store.setTotalSales(store.getDaySales());
+			store.resetDaySales();
 			System.out.printf("The store had %d sales affected by outages today", store.getAffected());
+			store.setTotalAffected(store.getAffected());
 			store.makeRolls();
 			store.setAffected(-1*store.getAffected());
+			System.out.println();
 		}
 		
 		observe.printTotalRollsSold();
+		System.out.println();
+		System.out.printf("Store made a total of %.2f dollars\n", store.getTotalSales());
+		System.out.printf("There were a total of %d roll outage impacts", store.getTotalAffected());
 	}
 }

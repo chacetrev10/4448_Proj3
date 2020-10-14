@@ -17,11 +17,14 @@ import rolls.Roll;
 public class RollStore {
 
 	private Map<String, List<Roll>> rollInventory = new HashMap<>();
+	private Map<String, Double> salesByCustomerType = new HashMap<>();
 
 	private RollFactory factory;
 	private PropertyChangeSupport support;
 	private double daySales = 0;
+	private double totalSales = 0;
 	private int affectedCustomers = 0;
+	private int totalAffected = 0;
 
 	public RollStore(RollFactory factory) {
 		support = new PropertyChangeSupport(this);
@@ -32,6 +35,10 @@ public class RollStore {
 		rollInventory.put("sausage", new ArrayList<Roll>());
 		rollInventory.put("pastry", new ArrayList<Roll>());
 		makeRolls();
+		
+		salesByCustomerType.put("casual", 0.0);
+		salesByCustomerType.put("business", 0.0);
+		salesByCustomerType.put("catering", 0.0);
 	}
 
 	public void makeRolls() {
@@ -133,9 +140,24 @@ public class RollStore {
 	public double getDaySales() {
 		return daySales;
 	}
+	
+	public Map<String, Double> getSalesByCustomerType() {
+		return salesByCustomerType;
+	}
 
-	public void setDaySales(double rollPrice) {
+	public void setDaySales(double rollPrice, String customerType) {
 		daySales += rollPrice;
+		salesByCustomerType.put(customerType, salesByCustomerType.get(customerType) + rollPrice); 
+	}
+	
+	public void resetDaySales() {
+		daySales = 0;
+	}
+	
+	public void resetSalesByCustomerType() {
+		salesByCustomerType.put("casual", 0.0);
+		salesByCustomerType.put("business", 0.0);
+		salesByCustomerType.put("catering", 0.0);
 	}
 
 	public int getAffected() {
@@ -144,6 +166,22 @@ public class RollStore {
 
 	public void setAffected(int num) {
 		affectedCustomers += num;
+	}
+	
+	public void setTotalSales(double num) {
+		totalSales += num;
+	}
+	
+	public double getTotalSales() {
+		return totalSales;
+	}
+	
+	public void setTotalAffected(int num) {
+		totalAffected += num;
+	}
+	
+	public int getTotalAffected() {
+		return totalAffected;
 	}
 
 }
