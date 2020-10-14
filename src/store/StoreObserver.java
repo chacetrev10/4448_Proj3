@@ -18,6 +18,8 @@ public class StoreObserver implements PropertyChangeListener {
 	//Keep track of what has been sold
 	private Map<String, Integer> totalSold = new HashMap<>();
 
+	private int rollCount;
+
 	//Observe the RollStore to see if a roll type runs out
 	@Override
 	public void propertyChange(PropertyChangeEvent event) {
@@ -30,7 +32,7 @@ public class StoreObserver implements PropertyChangeListener {
 
 			int currentRollSold = totalSold.get(event.getNewValue()) + 1;
 			totalSold.put((String) event.getNewValue(), currentRollSold);
-			if (currentRollSold % 30 == 0) {
+			if (currentRollSold % rollCount == 0) {
 				System.out.println("The shop has just ran out of " + event.getNewValue() + " rolls!");
 				availableInventory.remove(event.getNewValue());
 			}
@@ -51,6 +53,10 @@ public class StoreObserver implements PropertyChangeListener {
 				totalSold.get("sausage"), totalSold.get("pastry"));
 		System.out.printf("Total number of rolls sold: %d", totalSold.get("jelly") + totalSold.get("spring") 
 		+ totalSold.get("egg") + totalSold.get("sausage") + totalSold.get("pastry"));
+	}
+	
+	public void setRollCount(int rollCount) {
+		this.rollCount = rollCount ;
 	}
 
 }

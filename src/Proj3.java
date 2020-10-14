@@ -30,13 +30,13 @@ public class Proj3 {
 		
 		//Outer loop to try all 3 different options for maximum number of rolls
 		for (int maximum: maxRollOptions) {
-		
+			
 			System.out.printf("\n\n\n-------------------------%d ROLLS MAXIMUM-------------------------\n\n\n", maximum);
 			
 			// Create roll factory and store
 			RollFactory factory = new RollFactory();
 			RollStore store = new RollStore(factory, maximum);
-	
+			
 			CustomerFactory casualFact = new CasualFactory();
 			CustomerFactory buisnessFact = new BuisnessFactory();
 			CustomerFactory cateringFact = new CateringFactory();
@@ -44,6 +44,8 @@ public class Proj3 {
 			// Define store observer and subscribe it the store
 			StoreObserver observe = new StoreObserver();
 			store.addPropertyChangeListener(observe);
+			
+			observe.setRollCount(maximum);
 			
 			//Run unit tests before simulation begins
 			MyUnitTest unitTests = new MyUnitTest();
